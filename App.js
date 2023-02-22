@@ -1,6 +1,30 @@
+import { useEffect, useState } from 'react';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 
 export default function App() {
+
+  // VARIABLES
+  
+  const [itemText, setItemText] = useState('');
+  const [items, setItems] = useState([]);
+
+  // EVENTOS
+
+  const onChangeText = (text) =>{
+    setItemText(text);
+  }
+
+  const addItem = () =>{
+    setItems(oldArray => [...oldArray, {id: Date.now(), value: itemText}]);
+    setItemText('');
+  }
+
+  // PARA VERIFICAR
+  
+  useEffect(()=>{
+    console.log('items: ', items);
+  }, [items]);
+
   return(
     <View style={styles.ST_container}>
       {/* TITULO DE LA PANTALLA */}
@@ -11,15 +35,15 @@ export default function App() {
       
       {/* INGRESO DE LOS ITEMS */}
       <View style={styles.ST_inputContainer}>
-        <TextInput placeholder='Item de la lista' style={styles.ST_textInput} />
-        <Button title='Agregar' />
+        <TextInput placeholder='Item de la lista' style={styles.ST_textInput} onChangeText={onChangeText} />
+        <Button title='Agregar' onPress={addItem} />
       </View>
 
       {/* LISTA DE ITEMS */}
       <View style={styles.ST_itemsContainer}>
-        <Text style={styles.ST_Text}>Item 1.</Text>
-        <Text style={styles.ST_Text}>Item 2.</Text>
-        <Text style={styles.ST_Text}>Item 3.</Text>
+        {
+          items.map(item => <Text key={item.id} style={styles.ST_Text} > {item.value} </Text>)
+        }
       </View>
 
     </View>
