@@ -42,7 +42,8 @@ export default function App() {
       {/* LISTA DE ITEMS */}
       <View style={styles.ST_itemsContainer}>
         {
-          items.map(item => <Text key={item.id} style={styles.ST_Text} > {item.value} </Text>)
+          //ITERACION DE LOS ELEMENTOS DE LA LISTA 
+          items.map(item => <Text key={item.id} style={styles.ST_Text}>{item.value}</Text>)
         }
       </View>
 
